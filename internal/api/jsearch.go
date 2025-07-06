@@ -11,10 +11,10 @@ import (
 	"github.com/tf-vishal/JNotifier/internal/models"
 )
 
-func FetchFromJsearch() (keyword string) []models.Job{
+func FetchFromJsearch(keyword string) []models.Job {
 	url := fmt.Sprintf("https://jsearch.p.rapidapi.com/search?query=%s&num_pages=1", keyword)
 
-	req., _ := http.NewRequest("GET", url, nil)
+	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Add("X-RapidAPI-Key", os.Getenv("RAPIDAPI_KEY"))
 	req.Header.Add("X-RapidAPI-Host", "jsearch.p.rapidapi.com")
 
@@ -28,12 +28,12 @@ func FetchFromJsearch() (keyword string) []models.Job{
 
 	body, _ := io.ReadAll(res.Body)
 
-	car result struct {
+	var result struct {
 		Data []struct {
-			JobTitle    string `json:"job_title"`
+			JobTitle string `json:"job_title"`
 			Employer string `json:"employer_name"`
 			Location string `json:"location"`
-			JobLink string `json:"job_apply_link"`
+			JobLink  string `json:"job_apply_link"`
 		} `json:"data"`
 	}
 
@@ -44,7 +44,7 @@ func FetchFromJsearch() (keyword string) []models.Job{
 
 	var jobs []models.Job
 	for _, item := range result.Data {
-		jobs = append (job,models.Job{
+		jobs = append(jobs, models.Job{
 			Title:    item.JobTitle,
 			Company:  item.Employer,
 			Link:     item.JobLink,

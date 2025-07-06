@@ -9,7 +9,7 @@ import (
 )
 
 func StartJobScheduler() {
-	ticker := timer.NewTicker(30 * time.Minute)
+	ticker := time.NewTicker(30 * time.Minute)
 
 	go func() {
 		for range ticker.C {
