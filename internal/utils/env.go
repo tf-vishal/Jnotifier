@@ -8,7 +8,8 @@ import (
 
 func LoadEnv() {
 	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
+	if err := godotenv.Load(); err != nil {
+		log.Println("ℹ️ Skipping .env load: running in Railway or no local .env")
 	}
+
 }
