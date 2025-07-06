@@ -3,7 +3,6 @@ package discord
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -13,7 +12,6 @@ import (
 
 func SendJobNotification(job models.Job) {
 	webhookURL := os.Getenv("DISCORD_WEBHOOK")
-	fmt.Println("Webhook URL:", os.Getenv("DISCORD_WEBHOOK"))
 
 	message := map[string]string{
 		"content": "📢 **" + job.Title + "** at **" + job.Company + "** (" + job.Location + ")\n" + job.Link,
